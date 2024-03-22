@@ -6,10 +6,18 @@ require "colorize"
 class Cli < Clim
   main do
     help_template do |desc, usage, options, arguments, sub_commands|
-      base = <<-BASE_HELP
-        #{desc}
+      options_help_lines = options.map do |option|
+        "\t#{option[:names].join(", ").colorize(:green)}\t#{option[:desc]}"
+      end
 
-        #{"USAGE:".colorize(:yellow)} #{usage}
+      base = <<-BASE_HELP
+      #{desc}
+
+      #{"USAGE:".colorize(:yellow)}
+      #{usage}
+
+      #{"FLAGS:".colorize(:yellow)}
+      #{options_help_lines.join("\n")}
       BASE_HELP
 
       base
@@ -21,9 +29,7 @@ class Cli < Clim
     DESC
 
     usage <<-USAGE
-
     \tncal [flags]
-    \tncal [subcommand] [flags] [arguments]
     USAGE
 
     help short: "-h"
