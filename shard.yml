@@ -1,0 +1,17 @@
+name: ncal
+version: 0.1.0
+
+authors:
+  - pes18fan <pes18fan@disr.it>
+
+targets:
+  ncal:
+    main: src/ncal.cr
+
+dependencies:
+  clim:
+    github: at-grandpa/clim
+
+crystal: '>= 1.11.2'
+
+license: Unlicense
