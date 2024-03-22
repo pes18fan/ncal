@@ -2,6 +2,8 @@
 
 A small terminal program that provides the current Nepali date.
 
+Still a work-in-progress!
+
 ## Contributing
 
 1. Fork it (<https://github.com/pes18fan/ncal/fork>)
