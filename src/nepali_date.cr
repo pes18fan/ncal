@@ -1,5 +1,11 @@
+# Object that represents a date in Bikram Sambat.
 class NepaliDate
-  def initialize(@year : Int32, @month : Int32, @day : Int32)
+  property year : Int32
+  property month : Int32
+  property day : Int32
+  property day_of_week : Time::DayOfWeek
+
+  def initialize(@year : Int32, @month : Int32, @day : Int32, @day_of_week : Time::DayOfWeek)
   end
 
   def initialize(gregorian : Time)
@@ -8,6 +14,7 @@ class NepaliDate
     @year = date[:year]
     @month = date[:month]
     @day = date[:day]
+    @day_of_week = gregorian.day_of_week
   end
 
   def initialize
@@ -16,6 +23,7 @@ class NepaliDate
     @year = date[:year]
     @month = date[:month]
     @day = date[:day]
+    @day_of_week = Time.utc.day_of_week
   end
 
   private def from_gregorian(gregorian : Time) : NamedTuple(year: Int32, month: Int32, day: Int32)
@@ -30,8 +38,8 @@ class NepaliDate
                end
 
     # Initial values
-    # Baisakh is set as 1, not 0
-    nep_month = 1
+    # Do note that Baisakh is set as 1, the value 0 here is just a placeholder
+    nep_month = 0
     nep_day = 0
 
     # English date that falls on first day of the nep_year
@@ -54,6 +62,7 @@ class NepaliDate
       gregorian_day_gap -= days
     end
 
+    # nep_day is converted to Int32 as it may be either Int32 or Int64.
     {year: nep_year, month: nep_month, day: nep_day.to_i32}
   end
 

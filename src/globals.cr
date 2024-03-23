@@ -1,8 +1,11 @@
+# Variables used globally and some utility functions.
 class Globals
   # Version of the program.
   @@version : String = {{ `shards version #{__DIR__}`.chomp.stringify }}
 
   # Length of each BS month from 2000 BS to 2090 BS.
+  # Since there is no proper mathematical way to find the length of each month,
+  # a lookup table has to be used.
   # Taken from https://github.com/kanchudeep/BikramSambat.
   @@month_length : Hash(Int32, Array(Int32)) = {
       2000 => [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31], 2001 => [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30], 2002 => [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30], 2003 => [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31], 2004 => [30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31], 2005 => [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30], 2006 => [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30], 2007 => [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31], 2008 => [31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31], 2009 => [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
@@ -142,5 +145,9 @@ class Globals
 
   def self.month_name
     @@month_name
+  end
+
+  def self.get_offset_weekday(weekday : Time::DayOfWeek, offset : Int32)
+    Time::DayOfWeek.new((weekday.value + offset) % 7)
   end
 end

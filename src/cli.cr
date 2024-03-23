@@ -1,3 +1,4 @@
+require "./calendar"
 require "./globals"
 require "./nepali_date"
 require "clim"
@@ -36,7 +37,8 @@ class Cli < Clim
     version "ncal version #{Globals.version}\nwritten with <3 by pes18fan", short: "-v"
 
     run do |opts, args|
-      puts "Today is #{NepaliDate.new.to_s}."
+      # puts "Today is #{NepaliDate.new.to_s}."
+      puts Calendar.new(:MONTH).render
     end
   end
 end
