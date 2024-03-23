@@ -2,7 +2,23 @@
 
 A small Nepali calendar program in the terminal.
 
+<img src="./assets/ncal.png" alt="ncal open in WezTerm" />
+
 Still a work-in-progress!
+
+## Installation
+
+Download [Crystal](https://crystal-lang.org) for your system.
+
+Then clone the repo and build the app.
+
+```bash
+git clone https://github.com/pes18fan/ncal
+cd ncal
+shards build ncal
+```
+
+`ncal` will be built in the folder `./bin/ncal`.
 
 ## Contributing
 
