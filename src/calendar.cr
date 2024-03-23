@@ -51,9 +51,11 @@ class Calendar
           weekdays << " " * element_spacing
           weekdays << "Sa".colorize(:red)
         end
-        month_year_str = "#{Globals.month_name[date.month - 1]} #{date.year}".center(weekdays_str.size).colorize(:yellow)
+        month_year_str = "#{Globals.month_name[date.month - 1]} #{date.year}"
 
-        str << month_year_str
+        # For some unknown reason Crystal thinks the weekdays_str is 9 characters
+        # longer than what it actually is, necessitating this workaround.
+        str << month_year_str.center(weekdays_str.size - 9).colorize(:yellow)
         str << "\n"
         str << weekdays_str
         str << "\n"
