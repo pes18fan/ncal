@@ -1,6 +1,6 @@
 # ncal
 
-A small terminal program that provides the current Nepali date.
+A small Nepali calendar program in the terminal.
 
 Still a work-in-progress!
 
