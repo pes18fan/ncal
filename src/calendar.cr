@@ -14,9 +14,7 @@ class Calendar
   end
 
   # Return a string representation of the calendar.
-  def render
-    date = NepaliDate.new
-
+  def render(date : NepaliDate = NepaliDate.new)
     if @type == CalendarType::MONTH
       # Get the number of days in said month.
       days_in_month = Globals.month_length[date.year][date.month - 1]

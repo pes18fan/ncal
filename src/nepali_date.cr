@@ -47,7 +47,7 @@ class NepaliDate
 
     # Difference in days between the input date and first_day_of_nep_year
     # This must always be positive.
-    gregorian_day_gap = (gregorian - first_day_of_nep_year).days
+    gregorian_day_gap = (gregorian - first_day_of_nep_year).days.to_i32
 
     # The value above is used to calculate the exact Nepali day by subtracting
     # the number of days of each month from it till it is less than the number
@@ -63,7 +63,7 @@ class NepaliDate
     end
 
     # nep_day is converted to Int32 as it may be either Int32 or Int64.
-    {year: nep_year, month: nep_month, day: nep_day.to_i32}
+    {year: nep_year, month: nep_month, day: nep_day}
   end
 
   def to_s
