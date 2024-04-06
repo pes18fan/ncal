@@ -14,4 +14,4 @@ dependencies:
 
 crystal: '>= 1.11.2'
 
-license: Unlicense
+license: GPLv3 
