@@ -20,6 +20,10 @@ shards build ncal
 
 `ncal` will be built in the folder `./bin/ncal`.
 
+## Usage
+
+Check `ncal --help`.
+
 ## Contributing
 
 1. Fork it (<https://github.com/pes18fan/ncal/fork>)
