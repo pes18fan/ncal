@@ -11,6 +11,14 @@ class Cli < Clim
         "\t#{option[:names].join(", ").colorize(:green)}\t#{option[:desc]}"
       end
 
+      arguments_help_lines = arguments.map do |argument|
+        "\t#{argument[:display_name].colorize(:green)}\t#{argument[:desc]}"
+      end
+
+      sub_commands_help_lines = sub_commands.map do |sub_command|
+        "\t#{sub_command[:names].join(", ").colorize(:green)}\t#{sub_command[:desc]}"
+      end
+
       base = <<-BASE_HELP
       #{desc}
 
@@ -19,9 +27,32 @@ class Cli < Clim
 
       #{"FLAGS:".colorize(:yellow)}
       #{options_help_lines.join("\n")}
+
       BASE_HELP
 
-      base
+      args = <<-ARGS_HELP
+
+      #{"ARGUMENTS:".colorize(:yellow)}
+      #{arguments_help_lines.join("\n")}
+
+      ARGS_HELP
+
+      sub = <<-SUB_HELP
+
+      #{"SUBCOMMANDS:".colorize(:yellow)}
+      #{sub_commands_help_lines.join("\n")}
+
+      SUB_HELP
+
+      if arguments.empty? && sub_commands.empty?
+        base
+      elsif arguments.empty? && !sub_commands.empty?
+        base + sub
+      elsif sub_commands.empty? && !arguments.empty?
+        base + args
+      else
+        base + sub + args
+      end
     end
 
     desc <<-DESC
@@ -31,10 +62,33 @@ class Cli < Clim
 
     usage <<-USAGE
     \tncal [flags]
+    \tncal [subcommand] [flags] [args]
     USAGE
 
     help short: "-h"
     version "ncal version #{Globals.version}\nwritten with <3 by pes18fan", short: "-v"
+
+    sub "of" do
+      desc "Choose the type of calendar to show"
+      usage "ncal of [type]"
+      help short: "-h"
+
+      argument "type",
+        desc: "Type of calendar, must be either 'month' or 'year'",
+        type: String
+
+      run do |opts, args|
+        if args.all_args.empty?
+          puts opts.help_string
+        elsif args.type.as(String).chomp.to_s == "month"
+          puts Calendar.new(:MONTH).render
+        elsif args.type.as(String).chomp.to_s == "year"
+          puts Calendar.new(:YEAR).render
+        else
+          puts "#{"ERROR:".colorize(:red)} Invalid type, it must be either 'month' or 'year'."
+        end
+      end
+    end
 
     run do |opts, args|
       # puts "Today is #{NepaliDate.new.to_s}."
