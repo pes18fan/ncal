@@ -66,7 +66,7 @@ class Cli < Clim
     USAGE
 
     help short: "-h"
-    version "ncal version #{Globals.version}\nwritten with <3 by pes18fan", short: "-v"
+    version "#{"ncal".colorize(:green)} version #{Globals.version}\nwritten with <3 by pes18fan", short: "-v"
 
     sub "of" do
       desc "Choose the type of calendar to show"
