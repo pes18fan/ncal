@@ -123,6 +123,16 @@ class Calendar
           end
         end
         str << "\n"
+
+        # Occasionally, the last few days of the month may not be shown because
+        # of the way the number of weeks is calculated. This if statement compensates
+        # for that.
+        if day < days_in_month && i == num_weeks - 1
+          ((days_in_month - day) + 1).times do |i|
+            str << day + i
+            str << " " * element_spacing
+          end
+        end
       end
     end
 
