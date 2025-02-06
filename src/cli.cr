@@ -3,6 +3,7 @@ require "./globals"
 require "./nepali_date"
 require "clim"
 require "colorize"
+require "json"
 
 class Cli < Clim
   main do
@@ -86,6 +87,22 @@ class Cli < Clim
           puts Calendar.new(:YEAR).render
         else
           puts "#{"ERROR:".colorize(:red)} Invalid type, it must be either 'month' or 'year'."
+        end
+      end
+    end
+
+    sub "json" do
+      desc "Get today's date in json"
+      usage "ncal json"
+      help short: "-h"
+
+      run do |opts, args|
+        if !args.all_args.empty?
+          puts opts.help_string
+        else
+          date = NepaliDate.new
+
+          puts({"year" => date.year, "month" => date.month, "day" => date.day}.to_json)
         end
       end
     end
