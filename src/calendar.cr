@@ -33,7 +33,12 @@ class Calendar
 
           date = NepaliDate.new(date.year, i + 1, 1, first_day_of_week)
 
-          str << render_month(date, false)
+          if i == month
+            str << render_month(date, true)
+          else
+            str << render_month(date, false)
+          end
+
           str << "\n\n"
         end
       end
